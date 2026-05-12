@@ -1,0 +1,26 @@
+I have an Excel file called InventoryFlow_Data.xlsx in the current folder.
+It's 230MB and contains ATV parts catalog data with schematic diagram images,
+part numbers, English names, Chinese names, pricing, and model fitment data.
+Please:
+1. Inspect the Excel file - list all sheet names and understand the structure
+2. Extract all data: part numbers, English names, Chinese names, prices, fitment info
+3. Extract all embedded images and save them to an /images folder
+4. Create a SQLite database called parts.db with this schema:
+   - part_number (TEXT, primary key)
+   - english_name (TEXT)
+   - chinese_name (TEXT)
+   - price (DECIMAL)
+   - image_path (TEXT)
+   - fitment (JSON array of year/make/model objects)
+5. Export summary.json showing total parts count and list of all sheet names
+6. Export sample_data.json with the first 100 complete records so I can read in Notepad
+Use Python with openpyxl or pandas. Install any needed packages.
+Keep it simple - no over-engineering.
+7. Create a file called ARCHITECTURE.md that documents:
+   - What the script does step by step
+   - The database schema with column descriptions
+   - Sample of the fitment JSON structure
+   - List of Python packages used and why
+   - How to run the script again in the future
+   - Folder structure of the project output
+Write it in simple English so a non-technical client can understand it.
