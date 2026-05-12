@@ -129,7 +129,7 @@ Each entry has four fields:
 After running the script you'll see this folder layout:
 
 ```
-inventoryflow-poc/
+inventoryflow/
 ├── InventoryFlow_Data.xlsx     (the original spreadsheet, untouched)
 ├── extract.py                  (the script)
 ├── parts.db                    (SQLite database — 8,385 parts)

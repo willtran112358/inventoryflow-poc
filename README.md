@@ -8,26 +8,29 @@ Data extraction pipeline that transforms a 230 MB Excel-based ATV / pitbike / di
 - SQLite (output database)
 - Standard library: `zipfile`, `xml.etree`, `sqlite3`, `json`, `re`
 
+## Architecture
+
+```mermaid
+flowchart LR
+    A[Excel Catalog<br/>110 sheets / 230 MB] --> B[Bronze: Image Extraction]
+    A --> C[Bronze: Raw Cell Parse]
+    B --> D[Silver: Row-anchor Linking]
+    C --> E[Silver: Header Detection<br/>& Part-row Extraction]
+    D --> F[Gold: Deduplication<br/>& Fitment Merge]
+    E --> F
+    F --> G[(SQLite parts.db)]
+    F --> H[summary.json]
+    F --> I[sample_data.json]
+    D --> J[images/]
+```
+
 ## Data Pipeline
 
-```
-InventoryFlow_Data.xlsx (230 MB, 110 sheets)
-         │
-         ▼
-   ┌──────────┐
-   │ extract.py│  ← 3-stage pipeline
-   └────┬─────┘
-        │
-   ┌────┼────┐
-   ▼    ▼    ▼
-parts.db  images/  *.json
-```
-
-| Stage | What it does |
-|-------|--------------|
-| **Bronze** | Extract 1,586 embedded images from `xl/media/`; parse drawing XML for row anchors |
-| **Silver** | Walk 110 sheets, detect dynamic headers, extract part rows (PN, EN name, CN name, price) |
-| **Gold** | Deduplicate parts across sheets, merge fitments into JSON arrays, write SQLite + summaries |
+| Stage | Layer | What it does |
+|-------|-------|--------------|
+| 1 | **Bronze** | Extract 1,586 embedded images from `xl/media/`; parse drawing XML for row anchors |
+| 2 | **Silver** | Walk 110 sheets, detect dynamic headers, extract part rows (PN, EN name, CN name, price) |
+| 3 | **Gold** | Deduplicate parts across sheets, merge fitments into JSON arrays, write SQLite + summaries |
 
 ## Outputs
 
@@ -77,7 +80,7 @@ sqlite3 parts.db
 ## Repository Structure
 
 ```
-inventoryflow-poc/
+inventoryflow/
 ├── extract.py              # Main extraction pipeline
 ├── parts.db                # SQLite database (generated)
 ├── summary.json            # Aggregate stats (generated)
