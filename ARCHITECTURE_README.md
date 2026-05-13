@@ -1,5 +1,7 @@
 # InventoryFlow Parts Extractor
 
+> **Tiếng Việt (đọc nhanh):** bối cảnh dữ liệu + kiến trúc pipeline gộp một file — [`docs/DATA_AND_ARCHITECTURE_VI.md`](docs/DATA_AND_ARCHITECTURE_VI.md).
+
 This project takes one big Excel file (`InventoryFlow_Data.xlsx`, ~230 MB) full
 of ATV / pitbike / dirtbike parts catalog data and turns it into a clean set of
 files that are easy to use in code or browse by hand:

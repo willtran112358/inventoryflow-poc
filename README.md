@@ -102,6 +102,10 @@ inventoryflow/
 ├── summary.json            # Aggregate stats (generated)
 ├── sample_data.json        # First 100 records (generated)
 ├── images/                 # Extracted schematic images (generated)
+├── docs/
+│   ├── DATA_AND_ARCHITECTURE_VI.md  # VI quick-read: data context + architecture (then read EN)
+│   ├── DATA_CONTEXT.md     # Startup/data-layer context, issues vs solutions, Mermaid flows
+│   └── TYPESCRIPT_ESTIMATE.md  # Estimated TS stack shape vs this Python POC (onboarding)
 ├── ARCHITECTURE_README.md  # Detailed technical docs
 ├── README.md               # This file
 ├── .gitignore              # Excludes source XLSX and large binaries
