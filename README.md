@@ -11,17 +11,33 @@ Data extraction pipeline that transforms a 230 MB Excel-based ATV / pitbike / di
 ## Architecture
 
 ```mermaid
-flowchart LR
-    A[Excel Catalog<br/>110 sheets / 230 MB] --> B[Bronze: Image Extraction]
-    A --> C[Bronze: Raw Cell Parse]
-    B --> D[Silver: Row-anchor Linking]
-    C --> E[Silver: Header Detection<br/>& Part-row Extraction]
-    D --> F[Gold: Deduplication<br/>& Fitment Merge]
+flowchart TD
+    A["📊 Excel Catalog<br/>110 sheets • 230 MB<br/>ATV/Dirtbike Parts"]
+    
+    A --> B["🖼️ Bronze: Image<br/>Extraction<br/>1,586 images<br/>from xl/media/"]
+    A --> C["📄 Bronze: Raw Cell<br/>Parse<br/>Extract XML<br/>& Row Anchors"]
+    
+    B --> D["🔗 Silver: Row-Anchor<br/>Linking<br/>Map images<br/>to rows"]
+    C --> E["🏷️ Silver: Header<br/>Detection<br/>Part Row Extract<br/>PN • EN • CN • Price"]
+    
+    D --> F["✨ Gold Layer<br/>Deduplication<br/>Fitment Merge<br/>8,385 unique parts"]
     E --> F
-    F --> G[(SQLite parts.db)]
-    F --> H[summary.json]
-    F --> I[sample_data.json]
-    D --> J[images/]
+    
+    F --> G["💾 SQLite<br/>parts.db"]
+    F --> H["📋 summary.json<br/>Extraction stats"]
+    F --> I["👁️ sample_data.json<br/>First 100 records"]
+    F --> J["🖼️ images/<br/>1,586 schematics"]
+    
+    style A fill:#ff9900,stroke:#000,color:#000,stroke-width:3px
+    style B fill:#87ceeb,stroke:#000,color:#000,stroke-width:2px
+    style C fill:#87ceeb,stroke:#000,color:#000,stroke-width:2px
+    style D fill:#98fb98,stroke:#000,color:#000,stroke-width:2px
+    style E fill:#98fb98,stroke:#000,color:#000,stroke-width:2px
+    style F fill:#ffd700,stroke:#000,color:#000,stroke-width:3px
+    style G fill:#dda0dd,stroke:#000,color:#000,stroke-width:2px
+    style H fill:#dda0dd,stroke:#000,color:#000,stroke-width:2px
+    style I fill:#dda0dd,stroke:#000,color:#000,stroke-width:2px
+    style J fill:#dda0dd,stroke:#000,color:#000,stroke-width:2px
 ```
 
 ## Data Pipeline
